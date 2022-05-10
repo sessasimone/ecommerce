@@ -10,6 +10,9 @@
 <body>
     <center>
     <div class="jumbotron text-center">
+    <a href = 'elencoArticoli.php'>
+    <img src="img/HomeBlack.jpg"  width="40" height="40">
+    </a>
   <h1 style="color:cornflowerblue;">CARRELLO</h1>
   <p style="color:deepskyblue;">E-COMMERCE</p> 
   
