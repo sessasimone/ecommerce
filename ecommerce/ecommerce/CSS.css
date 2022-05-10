@@ -1,0 +1,83 @@
+
+body {
+  background-color: aliceblue;
+}
+
+.casella{
+    border-style: solid;
+    border-color: rgb(35, 101, 177);
+    border-left:  solid rgb(63, 182, 230);
+    border-radius: 5px;
+}
+
+.nomeArt{
+  background-color:rgb(21, 49, 78);
+  color: aliceblue;
+}
+
+.title{
+  font-weight: 9000;
+  background-color:
+  rgb(30, 76, 126);
+  color: aliceblue;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.title2{
+  background-color:rgb(45, 102, 163);
+  color: aliceblue;
+  height: 80px;
+}
+
+.scritte{
+  color: rgb(21, 49, 78);
+}
+
+.checked {
+  color: orange;
+}
+
+.sinistra {
+  left:0;
+  margin-left: 20px; 
+}
+
+.centro{
+  right: 47%;
+}
+
+.destra{
+  right:0;
+  margin-right: 20px; 
+}
+
+.sinistra, .centro, .destra{
+  position:absolute;
+  top:0;
+  margin-top:111px;
+}
+
+.cart{
+  position:absolute;
+  top:0;
+  right:0;
+  margin-right:20px;
+  margin-top:12px;
+}
+
+
+.hh1{
+  font-size: 36px;
+}
+
+.nomeC{
+  font-size: bold;
+  color: rgb(21, 49, 78);
+}
+
+.casellaC{
+  border-style: solid;
+  border-color: white;
+  border-left:  solid rgb(35, 101, 177);
+  border-radius: 5px;
+}
