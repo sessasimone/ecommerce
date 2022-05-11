@@ -52,6 +52,9 @@
         echo "</div>";
 
     }
+    echo "<br><form action = 'insertProdotto.php?articolo=". $articolo."' method = 'post'>";
+    echo "<input type = 'submit'  class='btn btn-primary' value = 'Aggiungi al carrello'>";                   
+    echo "</form>"
     
         ?>
         

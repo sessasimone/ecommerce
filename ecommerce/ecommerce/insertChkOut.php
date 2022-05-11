@@ -2,15 +2,10 @@
 
 include("connection.php");
 session_start();
-$articolo = $_GET["articolo"];
 $utente = $_SESSION["IDUtente"];
-
-
-$sqlA = "SELECT * FROM carrello WHERE IDArticolo=$articolo AND IDUtente=$utente";
+$sqlA = "SELECT * FROM carrello WHERE IDUtente=$utente";
 $resultA = $conn->query($sqlA);
 if ($resultA !== false && $resultA->num_rows > 0) {
-  $sqlB = "SELECT quantita FROM carrello WHERE IDArticolo=$articolo AND IDUtente=$utente";
-$quantità = $conn->query($sqlB);
     $quantità++;
     $stmt = $conn->prepare("UPDATE carrello SET quantita = " . $quantità . " WHERE IDArticolo = " . $articolo . "");
     $stmt->execute();
