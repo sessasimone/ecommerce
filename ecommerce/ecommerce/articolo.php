@@ -29,7 +29,10 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         if (isset($_GET["msg"])) echo $_GET["msg"] . "<br>";
         echo"<div class='nomeArt'>";
-        echo "<br><a href = 'elencoArticoli.php'><img src='img/HomeBlack.jpg'  width='40' height='40'></a>";
+        // echo "<br><a href = 'elencoArticoli.php'><img src='img/HomeBlack.jpg'  width='40' height='40'></a>";
+        echo "<form action = 'elencoArticoli.php' method = 'get'>";
+                    echo "<input type = 'submit'  class='btn btn-primary' value = 'Home'>";                   
+                    echo "</form>";
         echo "<h2>" . $row["nomeArticolo"] . "</h2>";
         echo"</div>";
         echo "<img src = '" . $row["immagine"] . "' width = '400' height = '500'><br>";

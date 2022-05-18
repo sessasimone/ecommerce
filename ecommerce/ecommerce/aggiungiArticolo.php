@@ -16,7 +16,7 @@
                 <input type="file"  name = "file"  >
                 <br><input type="text" class="casella" name="nomeArticolo" placeholder="nome articolo"><br> 
                 <br><input type="float" class="casella" name="prezzo" placeholder="prezzo"><br> 
-                <br><input type="int" class="casella" name=" placeholder="quantità"><br> <br>   
+                <br><input type="int" class="casella" name="giacenza" placeholder="giacenza"><br> <br>   
                 <input type="submit" value="Invia" class="btn btn-info">
             </form>
         </center>

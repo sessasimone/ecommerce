@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+include("connection.php");
+session_start();
 ?>
 <html>
 <meta charset="utf-8">
@@ -110,7 +112,7 @@ $profilo1 = $_SESSION["IDUtente"];
                             echo "<br>";
                             echo " <p >". 'prezzo ' . $row["prezzo"] . ' €' ."</p>";
                             echo " <p >". 'quantità ' . $row["giacenza"] ."</p>";
-                            echo "<br><form action = 'carrello.php' method = 'post'>";
+                            echo "<br><form action = 'insertProdotto.php?articolo=". $articolo."' method = 'post'>";
                             echo "<input type = 'submit'  class='btn btn-primary' value = 'Aggiungi al carrello'>";                   
                             echo "</form>";
                             echo "</div>";

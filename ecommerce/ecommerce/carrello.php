@@ -1,4 +1,5 @@
 <?php session_start();
+ include("connection.php");
 ?>
 <html>
 <meta charset="utf-8">
@@ -26,10 +27,19 @@
 </div>
         </div>
         <?php
-          include("connection.php");
+         
+          
             if(isset($_SESSION["IDUtente"])){
               $IDUtente = $_SESSION["IDUtente"];
-            $sql = "SELECT * FROM articoli INNER JOIN carrello ON carrello.IDArticolo = articoli.ID WHERE carrello.IDUtente = '$IDUtente'";
+              $idCarrello;
+              $sqlC = "SELECT * from carrello where IDUtente =". $IDUtente;
+              $resultC = $conn->query($sqlC);
+              if($resultC ->num_rows > 0){
+                while($row = $resultC->fetch_assoc() ){
+                  $idCarrello = $row["ID"];
+  }
+}
+            $sql = "SELECT * FROM articoli INNER JOIN contiene ON contiene.IDArticolo = articoli.ID WHERE contiene.IDCarrello = '$idCarrello'";
           }
 
         $result = $conn->query($sql);   //filtro ricerca
@@ -52,9 +62,9 @@
         echo "</div>";
 
     }
-    echo "<br><form action = 'insertProdotto.php?articolo=". $articolo."' method = 'post'>";
-    echo "<input type = 'submit'  class='btn btn-primary' value = 'Aggiungi al carrello'>";                   
-    echo "</form>"
+    // echo "<br><form action = 'insertProdotto.php?articolo=". $articolo."' method = 'post'>";
+    // echo "<input type = 'submit'  class='btn btn-primary' value = 'Aggiungi al carrello'>";                   
+    // echo "</form>"
     
         ?>
         

@@ -7,12 +7,12 @@ $uploadfile = $uploaddir . basename($_FILES['file']['name']);
 $foto = $uploadfile;
 $nomeArticolo = $_POST["nomeArticolo"];
 $prezzo = $_POST["prezzo"];
-$quantita = $_POST["quantita"];
+$giacenza = $_POST["giacenza"];
 
 
-$stmt = $conn->prepare("INSERT INTO articoli (immagine, nomeArticolo, prezzo, quantita) 
+$stmt = $conn->prepare("INSERT INTO articoli (immagine, nomeArticolo, prezzo, giacenza) 
           VALUES (?, ?, ?, ?)");
-$stmt->bind_param("ssss", $foto, $nomeArticolo, $prezzo, $quantita);
+$stmt->bind_param("sssi", $foto, $nomeArticolo, $prezzo, $giacenza);
 
 if ($stmt->execute() === true) {
   header("location:elencoArticoli.php?msg=articolo aggiunto con successo");
