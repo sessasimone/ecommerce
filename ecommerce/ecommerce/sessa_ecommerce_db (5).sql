@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Apr 21, 2022 alle 10:02
+-- Creato il: Mag 24, 2022 alle 08:26
 -- Versione del server: 10.4.6-MariaDB
 -- Versione PHP: 7.3.8
 
@@ -33,16 +33,18 @@ CREATE TABLE `articoli` (
   `immagine` varchar(500) NOT NULL,
   `nomeArticolo` varchar(25) NOT NULL,
   `prezzo` float NOT NULL,
-  `quantita` int(11) NOT NULL
+  `giacenza` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `articoli`
 --
 
-INSERT INTO `articoli` (`ID`, `immagine`, `nomeArticolo`, `prezzo`, `quantita`) VALUES
+INSERT INTO `articoli` (`ID`, `immagine`, `nomeArticolo`, `prezzo`, `giacenza`) VALUES
 (2, 'img/613vLmkDsJL._AC_SL1500_ (1).jpg', 'iPhone 13 PRO azzurro', 999, 50),
-(3, 'img/LD0005897388_1.jpg', 'cover iPhone 13 PRO', 25, 110);
+(3, 'img/LD0005897388_1.jpg', 'cover iPhone 13 PRO', 25, 110),
+(5, 'img/6000203200042.jpg', 'TV 42\" samsung', 400, 32),
+(6, 'img/PHI8710103761143.jpg', 'ra', 5, 44);
 
 -- --------------------------------------------------------
 
@@ -52,10 +54,16 @@ INSERT INTO `articoli` (`ID`, `immagine`, `nomeArticolo`, `prezzo`, `quantita`) 
 
 CREATE TABLE `carrello` (
   `ID` int(11) NOT NULL,
-  `IDArticolo` int(11) NOT NULL,
-  `IDUtente` int(11) NOT NULL,
-  `IDQuantita` int(11) NOT NULL
+  `IDUtente` int(11) DEFAULT NULL,
+  `data` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `carrello`
+--
+
+INSERT INTO `carrello` (`ID`, `IDUtente`, `data`) VALUES
+(7, 1, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -76,7 +84,32 @@ CREATE TABLE `commenti` (
 --
 
 INSERT INTO `commenti` (`ID`, `IDArticolo`, `commento`, `stelline`, `IDUtente`) VALUES
-(1, 2, 'tiene molto caldo', 4, 1);
+(1, 2, 'tiene molto caldo', 4, 1),
+(2, 5, 'bel display', 5, 1),
+(3, 3, 'molto gommosa', 4, 2),
+(4, 3, 'bel display', 5, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `contiene`
+--
+
+CREATE TABLE `contiene` (
+  `ID` int(11) NOT NULL,
+  `IDCarrello` int(11) NOT NULL,
+  `IDArticolo` int(11) NOT NULL,
+  `quantita` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `contiene`
+--
+
+INSERT INTO `contiene` (`ID`, `IDCarrello`, `IDArticolo`, `quantita`) VALUES
+(1, 7, 3, 1),
+(4, 7, 5, 1),
+(5, 7, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -86,10 +119,29 @@ INSERT INTO `commenti` (`ID`, `IDArticolo`, `commento`, `stelline`, `IDUtente`) 
 
 CREATE TABLE `ordini` (
   `ID` int(11) NOT NULL,
-  `IDCarrello` int(11) NOT NULL,
+  `IDUtente` int(11) NOT NULL,
+  `cognome` varchar(15) NOT NULL,
+  `nome` varchar(15) NOT NULL,
+  `citta` varchar(15) NOT NULL,
+  `indirizzo` varchar(30) NOT NULL,
+  `num` int(11) NOT NULL,
+  `CAP` int(7) NOT NULL,
   `data` datetime NOT NULL,
   `prezzoTotale` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `prodottiordine`
+--
+
+CREATE TABLE `prodottiordine` (
+  `ID` int(11) NOT NULL,
+  `IDOrdine` int(11) NOT NULL,
+  `IDArticolo` int(11) NOT NULL,
+  `quantità` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -131,7 +183,6 @@ ALTER TABLE `articoli`
 --
 ALTER TABLE `carrello`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `v1` (`IDArticolo`),
   ADD KEY `IDUtente` (`IDUtente`);
 
 --
@@ -143,11 +194,25 @@ ALTER TABLE `commenti`
   ADD KEY `v4` (`IDUtente`);
 
 --
+-- Indici per le tabelle `contiene`
+--
+ALTER TABLE `contiene`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indici per le tabelle `ordini`
 --
 ALTER TABLE `ordini`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `v2` (`IDCarrello`);
+  ADD KEY `v7` (`IDUtente`);
+
+--
+-- Indici per le tabelle `prodottiordine`
+--
+ALTER TABLE `prodottiordine`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `v5` (`IDArticolo`),
+  ADD KEY `v6` (`IDOrdine`);
 
 --
 -- Indici per le tabelle `utenti`
@@ -163,24 +228,36 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `articoli`
 --
 ALTER TABLE `articoli`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT per la tabella `carrello`
 --
 ALTER TABLE `carrello`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la tabella `commenti`
 --
 ALTER TABLE `commenti`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT per la tabella `contiene`
+--
+ALTER TABLE `contiene`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `ordini`
 --
 ALTER TABLE `ordini`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `prodottiordine`
+--
+ALTER TABLE `prodottiordine`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -197,8 +274,7 @@ ALTER TABLE `utenti`
 -- Limiti per la tabella `carrello`
 --
 ALTER TABLE `carrello`
-  ADD CONSTRAINT `carrello_ibfk_1` FOREIGN KEY (`IDUtente`) REFERENCES `utenti` (`ID`),
-  ADD CONSTRAINT `v1` FOREIGN KEY (`IDArticolo`) REFERENCES `articoli` (`ID`);
+  ADD CONSTRAINT `carrello_ibfk_1` FOREIGN KEY (`IDUtente`) REFERENCES `utenti` (`ID`);
 
 --
 -- Limiti per la tabella `commenti`
@@ -211,7 +287,14 @@ ALTER TABLE `commenti`
 -- Limiti per la tabella `ordini`
 --
 ALTER TABLE `ordini`
-  ADD CONSTRAINT `v2` FOREIGN KEY (`IDCarrello`) REFERENCES `carrello` (`ID`);
+  ADD CONSTRAINT `v7` FOREIGN KEY (`IDUtente`) REFERENCES `utenti` (`ID`);
+
+--
+-- Limiti per la tabella `prodottiordine`
+--
+ALTER TABLE `prodottiordine`
+  ADD CONSTRAINT `v5` FOREIGN KEY (`IDArticolo`) REFERENCES `articoli` (`ID`),
+  ADD CONSTRAINT `v6` FOREIGN KEY (`IDOrdine`) REFERENCES `ordini` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

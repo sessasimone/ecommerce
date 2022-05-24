@@ -21,7 +21,7 @@
 </div>
 <div class="title2">
 <form action="elencoArticoli.php" method="get">
-            <input type="text" name="filtro" placeholder="cerca articolo">
+            <input type="text" name="filtro" style="color:black;" placeholder="cerca articolo">
             <input type="submit" class="btn btn-primary" value="🔍"><br>
             <div class="sinistra">
             <a href="elencoArticoli.php" class='btn btn-info'>visualizza tutto</a>
